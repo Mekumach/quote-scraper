@@ -8,6 +8,8 @@ all_quotes_info = []
 
 url = base_url
 
+output_file = 'quotes.json'
+
 while url:
 
     response = requests.get(url)
@@ -33,4 +35,7 @@ while url:
     next_button = soup.find('li', class_='next')
     url = base_url + next_button.find('a')['href'] if next_button else None
 
-print(json.dumps(all_quotes_info, indent=4, ensure_ascii=False))
+with open(output_file, 'w', encoding='utf-8') as f:
+    json.dump(all_quotes_info, f, indent=4, ensure_ascii=False)
+
+print(f"Данные успешно сохранены в {output_file}")
